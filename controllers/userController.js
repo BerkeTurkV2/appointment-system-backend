@@ -13,8 +13,8 @@ const registerUser = async (req, res) => {
 
         // Yeni kullanıcı oluştur
         const user = await User.create({
-            firstName,
-            lastName,
+            first_name: firstName,
+            last_name: lastName,
             username,
             password
         });
@@ -22,8 +22,8 @@ const registerUser = async (req, res) => {
         if (user) {
             res.status(201).json({
                 id: user.id,
-                firstName: user.firstName,
-                lastName: user.lastName,
+                first_name: user.first_name,
+                last_name: user.last_name,
                 username: user.username
             });
         }
@@ -44,8 +44,8 @@ const loginUser = async (req, res) => {
         if (user && (await user.matchPassword(password))) {
             res.json({
                 id: user.id,
-                firstName: user.firstName,
-                lastName: user.lastName,
+                first_name: user.first_name,
+                last_name: user.last_name,
                 username: user.username
             });
         } else {

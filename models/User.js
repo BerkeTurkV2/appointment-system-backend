@@ -2,25 +2,34 @@ const { DataTypes } = require('sequelize');
 const { sequelize } = require('../config/db');
 const bcrypt = require('bcryptjs');
 
-const User = sequelize.define('User', {
-    firstName: {
-        type: DataTypes.STRING,
-        allowNull: false
+const User = sequelize.define('users', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
     },
-    lastName: {
-        type: DataTypes.STRING,
-        allowNull: false
+    first_name: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+        field: 'first_name'
+    },
+    last_name: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+        field: 'last_name'
     },
     username: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(50),
         allowNull: false,
         unique: true
     },
     password: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(100),
         allowNull: false
     }
 }, {
+    timestamps: false,
+    freezeTableName: true,
     hooks: {
         beforeCreate: async (user) => {
             if (user.password) {
